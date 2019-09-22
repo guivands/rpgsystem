@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <h3>Create character</h3>
+</div>
+<div class="modal-body">
+	<form ng-submit="addChar(name)">
+	<div id="add-char-form" ng-if="showCharForm">
+	  <div class="form-group">
+		<label>Name:</label>
+		<input type="text" class="form-control" ng-model="character.name">
+	  </div>
+	  <div class="form-group">
+		<label>Class:</label>
+		<select class="form-control" ng-model="character.class">
+		  <option></option>
+		  <option>Druid</option>
+		  <option>Cleric</option>
+		  <option>Paladin</option>
+		  <option>Ranger</option>
+		  <option>Warrior</option>
+		</select>
+	  </div>
+	  <div class="form-group">
+		<label>Initiative bonus:</label>
+		<input type="number" class="form-control" ng-model="character.initiativeBonus" style="width:120px;">
+	  </div>
+	  <div class="form-group">
+		<label>Rolled initiative:</label>
+		<br/>
+		<input type="number" class="form-control" ng-model="character.initiative" style="width:120px;display:inline;">
+		<button type="button" style="display:inline" class="btn btn-outline-secondary btn-sm" ng-click="roll();"><i class="fas fa-dice-d20"></i> Roll d20</button>
+	  </div>
+	  <button type="submit" class="btn btn-success">Add</button>
+	  <button type="button" class="btn btn-danger" ng-click="toggleCharForm();">Close</button>
+	</div>
+	</form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>
+
+

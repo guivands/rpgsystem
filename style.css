@@ -1,0 +1,154 @@
+/* Styles go here */
+body {
+  background-image: url('img/logo.jpg');
+  background-size:200px;
+  background-position-x: center;
+  background-repeat: no-repeat;
+  background-color: #383838;
+  color: white;
+}
+
+button {
+  color: black;
+}
+
+.welcome {
+  position: absolute;
+  top:50%;
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+}
+
+.race-box {
+  width:100%;
+}
+.race-box .left {
+  width:10%;
+  float:left;
+}
+.race-box .right {
+  width:90%;
+  float:right;
+}
+.lane {
+  padding:2px;
+  height:20px;
+  color:white;
+  font-weight:bold;
+  border-right:1px solid black;
+  border-radius: 12px 0px 0px 12px;
+}
+.char-action-box {
+  margin:0;
+  padding:0;
+}
+.action {
+  float:left;
+  overflow:hidden;
+  height:20px;
+  border-bottom:3px solid;
+  font-weight:bold;
+}
+
+.drawer {
+	position:fixed;
+	right:0;
+	top:0;
+	z-index:10;
+	height:100%;
+	width:500px;
+	background-color: white;
+	-webkit-box-shadow: -8px 0px 21px 4px rgba(0,0,0,0.52);
+	-moz-box-shadow: -8px 0px 21px 4px rgba(0,0,0,0.52);
+	box-shadow: -8px 0px 21px 4px rgba(0,0,0,0.52);
+}
+
+.warrior-header {
+	background-image: url('https://wallpapersmug.com/large/ad2083/fantasy-warrior-art.jpg');
+	height:300px;
+}
+
+.char-class {
+	border-radius: 5px;
+	cursor:pointer;
+	display: inline-block;
+	border:1px solid #ccc;
+	color:black;
+	padding:13px;
+	padding-left:50px;
+	width: 236px;
+	background-image: url('img/warrior.png');
+	background-size: 30px;
+	background-repeat: no-repeat;
+	background-position: 10px 10px;
+	margin-bottom: 15px;
+}
+
+.char-class:hover{
+	background-color:#ccc;
+}
+
+.barbarian {
+	background-image: url('img/barbarian.png');
+}
+
+.bard {
+	background-image: url('img/bard.png');
+}
+
+.cleric {
+	background-image: url('img/cleric.png');
+}
+
+.druid {
+	background-image: url('img/druid.png');
+}
+
+.paladin {
+	background-image: url('img/paladin.png');
+}
+
+.ranger {
+	background-image: url('img/ranger.png');
+}
+
+.rogue {
+	background-image: url('img/rogue.png');
+}
+
+.warrior {
+	background-image: url('img/warrior.png');
+}
+
+.wizard {
+	background-image: url('img/wizard.png');
+}
+
+.confirm-class{
+	position:relative;
+}
+
+.confirm-class div{
+	position:absolute;
+	cursor:pointer;
+	background-size: 20px;
+	background-repeat: no-repeat;
+	background-position-y: center;
+	background-position-x: center;
+	width:50px;
+	height:52px;
+}
+
+.check{
+	right:50px;
+	background-image: url('img/check.png');
+	background-color: #479030;
+}
+
+.cancel{
+	right:0px;
+	background-image: url('img/cancel.png');
+	background-color: #a23645;
+	border-radius: 0px 5px 5px 0px;
+}
