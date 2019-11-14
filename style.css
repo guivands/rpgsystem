@@ -20,37 +20,6 @@ button {
   font-size: 20px;
 }
 
-.race-box {
-  width:100%;
-}
-.race-box .left {
-  width:10%;
-  float:left;
-}
-.race-box .right {
-  width:90%;
-  float:right;
-}
-.lane {
-  padding:2px;
-  height:20px;
-  color:white;
-  font-weight:bold;
-  border-right:1px solid black;
-  border-radius: 12px 0px 0px 12px;
-}
-.char-action-box {
-  margin:0;
-  padding:0;
-}
-.action {
-  float:left;
-  overflow:hidden;
-  height:20px;
-  border-bottom:3px solid;
-  font-weight:bold;
-}
-
 .drawer {
 	position:fixed;
 	right:0;
@@ -64,9 +33,56 @@ button {
 	box-shadow: -8px 0px 21px 4px rgba(0,0,0,0.52);
 }
 
-.warrior-header {
-	background-image: url('https://wallpapersmug.com/large/ad2083/fantasy-warrior-art.jpg');
+.barbarian-header {
+	background-position-y: -120px;
+	background-image: url('img/art/barbarian.jpg');
 	height:300px;
+}
+
+.bard-header {
+	background-image: url('img/art/bard.jpg');
+	height:300px;
+	background-position-y: -70px;
+}
+
+.cleric-header {
+	background-image: url('img/art/cleric.jpg');
+	height:300px;
+	background-position-y: -98px;
+}
+
+.druid-header {
+	background-image: url('img/art/druid.jpg');
+	height:300px;
+}
+
+.paladin-header {
+	background-image: url('img/art/paladin.jpg');
+	height:300px;
+}
+
+.ranger-header {
+	background-image: url('img/art/ranger.jpg');
+	height:300px;
+	background-position-y: -100px;
+}
+
+.rogue-header {
+	background-image: url('img/art/rogue.jpg');
+	height:300px;
+	background-position-y: -89px;
+}
+
+.warrior-header {
+	background-image: url('img/art/warrior.jpg');
+	height:300px;
+	background-position-y: -27px;
+}
+
+.wizard-header {
+	background-image: url('img/art/wizard.jpg');
+	height:300px;
+	background-position-y: -55px;
 }
 
 .char-class {
@@ -82,7 +98,7 @@ button {
 	background-size: 30px;
 	background-repeat: no-repeat;
 	background-position: 10px 10px;
-	margin-bottom: 15px;
+	margin: 9px;
 }
 
 .char-class:hover{
@@ -144,6 +160,7 @@ button {
 	right:50px;
 	background-image: url('img/check.png');
 	background-color: #479030;
+	margin: -14px;
 }
 
 .cancel{
@@ -151,4 +168,60 @@ button {
 	background-image: url('img/cancel.png');
 	background-color: #a23645;
 	border-radius: 0px 5px 5px 0px;
+	margin: -14px;
+}
+
+.form-char-class-header{
+	text-transform: uppercase;
+	font-weight: bold;
+	padding-top: 250px;
+}
+
+.char-table{
+	background-color:white;
+}
+
+.race-box {
+  width:100%;
+}
+.lane {
+    padding: 2px 7px;
+    height: 30px;
+    color: white;
+    font-weight: bold;
+    border-right: 1px solid black;
+    border-radius: 15px 0px 0px 15px;
+	width:40px;
+}
+.lane.lane-off{
+	border-radius: 0px 15px 15px 0px;
+}
+.char-lane{
+	height:30px;
+	white-space: nowrap;
+}
+.char-action-box {
+  margin:0;
+  padding:0;
+}
+.action {
+  display: inline-block;
+  overflow:hidden;
+  height:20px;
+  border-bottom:3px solid;
+  font-weight:bold;
+}
+.race-tooltip{
+    position: absolute;
+    background-color: #666;
+    z-index: 99;
+    margin-top: -45px;
+    color: white;
+    font-weight: normal;
+    padding: 1px 4px;
+    border-radius: 6px;
+}
+.td-lanes{
+	width: 1000px;
+	overflow-x: scroll;
 }

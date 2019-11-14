@@ -18,71 +18,42 @@
 
   <body ng-app="CharApp" ng-controller="CharCtrl">
     <div style="height:220px;"><!--HEADER--></div>
-	<div class="welcome" ng-if="!showCharForm && !started && characters.length == 0">
+	<div class="welcome" ng-if="!started && characters.length == 0">
         <span>I see you just got here.<br/>Let's start this adventure by creating our characters!<br/></span>
-        <button type="button" class="btn btn-primary" id="add-char-bt" ng-if="!showCharForm && !started" data-toggle="modal" data-target="#myModal"><i class="fas fa-user-plus"></i> Create 1st character</button>
+        <button type="button" class="btn btn-primary" id="add-char-bt" ng-if="!started" data-toggle="modal" data-target="#myModal"><i class="fas fa-user-plus"></i> Create 1st character</button>
     </div>
     <div class="container">
 
       <!--create char-->
       <div>
-        <button type="button" class="btn btn-primary" id="add-char-bt" ng-if="!showCharForm && !started && characters.length > 0" ng-click="toggleCharForm();">Create another character</button>
-        <form ng-submit="addChar(name)">
-        <div id="add-char-form" ng-if="showCharForm">
-          <div class="form-group">
-            <label>Name:</label>
-            <input type="text" class="form-control" ng-model="character.name">
-          </div>
-          <div class="form-group">
-            <label>Class:</label>
-            <select class="form-control" ng-model="character.class">
-              <option></option>
-              <option>Druid</option>
-              <option>Cleric</option>
-              <option>Paladin</option>
-              <option>Ranger</option>
-              <option>Warrior</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Initiative bonus:</label>
-            <input type="number" class="form-control" ng-model="character.initiativeBonus" style="width:120px;">
-          </div>
-          <div class="form-group">
-            <label>Rolled initiative:</label>
-            <br/>
-            <input type="number" class="form-control" ng-model="character.initiative" style="width:120px;display:inline;">
-            <button type="button" style="display:inline" class="btn btn-outline-secondary btn-sm" ng-click="roll();"><i class="fas fa-dice-d20"></i> Roll d20</button>
-          </div>
-          <button type="submit" class="btn btn-success">Add</button>
-          <button type="button" class="btn btn-danger" ng-click="toggleCharForm();">Close</button>
-        </div>
-        </form>
+        <button type="button" class="btn btn-primary" id="add-char-bt" ng-if="!started && characters.length > 0" ng-click="toggleCharForm();" data-toggle="modal" data-target="#myModal">Create another character</button>
       </div>
       
       <div style="height:40px;"></div>
       
       <div ng-if="characters.length">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <td>#</td>
-              <td>Name</td>
-              <td>Class</td>
-              <td>Init.</td>
-              <td>Idle</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="c in characters">
-              <td><b>{{c.acr}}</b></td>
-              <td>{{c.name}}</td>
-              <td>{{c.class}}</td>
-              <td>{{c.init}}</td>
-              <td>{{c.idle}}</td>
-            </tr>
-          </tbody>
-        </table>
+		<div class="char-table">
+			<table class="table table-striped">
+			  <thead>
+				<tr>
+				  <td>#</td>
+				  <td>Name</td>
+				  <td>Class</td>
+				  <td>Init.</td>
+				  <td>Idle</td>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr ng-repeat="c in characters">
+				  <td><b>{{c.acr}}</b></td>
+				  <td>{{c.name}}</td>
+				  <td>{{c.class}}</td>
+				  <td>{{c.init}}</td>
+				  <td>{{c.idle}}</td>
+				</tr>
+			  </tbody>
+			</table>
+		</div>
       
         <div style="height:40px;"></div>
         
@@ -93,7 +64,30 @@
           
           <div class="race-box">
             
-            <div class="char-action-box" ng-repeat="ch in characters">
+			<table cellpadding="0" cellspacing="0">
+				<tr valign="top">
+					<td>
+						<div ng-repeat="ch in characters" class="lane" style="background-color:{{laneCharColors[$index%13]}}"><b>{{ch.acr}}</b></div>
+					</td>
+					<td>
+						<div class="td-lanes">
+							<div ng-repeat="ch in characters" class="char-lane">
+								<div class="action" 
+									ng-repeat="r in ch.race" 
+									style="width:{{r.duration*10}}px; color:#{{colors[($index+$parent.$index)%4]}}; border-bottom-color:#color:#{{colors[($index+$parent.$index)%4]}}"
+									ng-mouseover="r.tooltip=true;console.log(r);" ng-mouseout="r.tooltip=false"
+									>{{r.text}} <div ng-if="r.tooltip" class="race-tooltip">{{r.text}} ({{r.duration}}s)</div>
+								</div>
+							</div>
+						</div>
+					</td>
+					<td>
+						<div ng-repeat="ch in characters" class="lane lane-off" style="background-color:{{laneCharColors[$index%13]}}"><b>{{ch.acr}}</b></div>
+					</td>
+				</tr>
+			</table>
+			
+            <!--div class="char-action-box" ng-repeat="ch in characters">
               <div class="left">
                 <div class="lane" style="background-color:{{laneCharColors[$index%13]}}"><b>{{ch.acr}}</b></div>
               </div>
@@ -101,11 +95,11 @@
                   <div class="action" 
                     ng-repeat="r in ch.race" 
                     style="width:{{r.duration*10}}px; color:#{{colors[($index+$parent.$index)%4]}}; border-bottom-color:#color:#{{colors[($index+$parent.$index)%4]}}"
-                    uib-tooltip="{{r.text}} ({{r.duration}}s)"
-                    >{{r.text}}</div>
+					ng-mouseover="r.tooltip=true;console.log(r);" ng-mouseout="r.tooltip=false"
+                    >{{r.text}} <div ng-if="r.tooltip" class="race-tooltip">{{r.text}} ({{r.duration}}s)</div></div>
               </div>
               <div style="clear:both;"></div>
-            </div>
+            </div-->
             
           </div>
           
@@ -137,74 +131,35 @@
 	<div id="myModal" class="modal fade">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
-				<div class="modal-header">
-					<div ng-if="!character.class">
-						<div class="row">
-							<div class="col-sm-4">
-								<div class="char-class barbarian">
-								<div class="confirm-class" ng-if="showBarbarian"><div class="check"></div><div class="cancel"></div></div>
-									<span>BARBARIAN</span>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="confirm-class" ng-if="showBard"><div class="check"></div><div class="cancel"></div></div>
-								<div class="char-class bard">
-									<span>BARD</span>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="char-class cleric">
-								<div class="confirm-class" ng-if="showCleric"><div class="check"></div><div class="cancel"></div></div>
-									<span>CLERIC</span>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-4">
-								<div class="char-class druid">
-								<div class="confirm-class" ng-if="showDruid"><div class="check"></div><div class="cancel"></div></div>
-									<span>DRUID</span>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="confirm-class" ng-if="showPaladin"><div class="check"></div><div class="cancel"></div></div>
-								<div class="char-class paladin" ng-click="confirmClass()">
-									<span>PALADIN</span>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="confirm-class" ng-if="showRanger"><div class="check"></div><div class="cancel"></div></div>
-								<div class="char-class ranger">
-									<span>RANGER</span>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-4">
-								<div class="confirm-class" ng-if="showRogue"><div class="check"></div><div class="cancel"></div></div>
-								<div class="char-class rogue">
-									<span>ROGUE</span>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="confirm-class" ng-if="showWarrior"><div class="check"></div><div class="cancel"></div></div>
-								<div class="char-class warrior">
-									<span>WARRIOR</span>
-								</div>
-							</div>
-							<div class="col-sm-4">
-								<div class="confirm-class" ng-if="showWizard"><div class="check"></div><div class="cancel"></div></div>
-								<div class="char-class wizard">
-									<span>WIZARD</span>
-								</div>
-							</div>
+				<div class="modal-header {{charFormHeaderClass}}">
+					<div class="form-char-class-header" ng-if="character.class">{{character.class}}</div>
+					<div ng-if="!character.class" data-ng-init="initClasses()">
+						<div class="char-class {{c.lc}}" ng-repeat="c in classes" ng-click="selectClass(c.lc)">
+							<div class="confirm-class" ng-if="showClass[c.lc]"><div class="check" ng-click="confirmClass(c.lc); $event.stopPropagation();"></div><div class="cancel" ng-click="selectClass('none'); $event.stopPropagation();"></div></div>
+							<span>{{c.uc}}</span>
 						</div>
 					</div>
 				</div>
-				<div class="modal-body">
-					<p>Some text in the modal.</p>
+				<div class="modal-body" style="color:black;">
+					<div ng-if="character.class">
+						<div class="form-group">
+							<label>Name:</label>
+							<input type="text" class="form-control" ng-model="character.name">
+						</div>
+						<div class="form-group">
+							<label>Initiative bonus:</label>
+							<input type="number" class="form-control" ng-model="character.initiativeBonus" style="width:120px;">
+						</div>
+						<div class="form-group">
+							<label>Rolled initiative:</label>
+							<br/>
+							<input type="number" class="form-control" ng-model="character.initiative" style="width:120px;display:inline;">
+							<button type="button" style="display:inline" class="btn btn-outline-secondary btn-sm" ng-click="roll();"><i class="fas fa-dice-d20"></i> Roll d20</button>
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
+					<button type="button" class="btn btn-success" ng-click="addChar()" ng-if="character.class && character.name && character.initiative">Create</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>

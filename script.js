@@ -4,43 +4,56 @@ var app = angular.module("CharApp", ['ui.bootstrap']);
 
 app.controller('CharCtrl', function($scope, $uibModal) {
   $scope.colors = ["00a4ef", "6ab43e", "e89d41", "fd4084"];
+  $scope.charFormHeaderClass = '';
+  $scope.rpgClassNames = ['barbarian','bard','cleric','druid','paladin','ranger','rogue','warrior','wizard'];
+  $scope.showClass = [];
+  $scope.classes = [];
+  for (i in $scope.rpgClassNames) {
+	  var rc = $scope.rpgClassNames[i];
+	  $scope.classes.push({
+		  lc: rc,
+		  uc: rc.toUpperCase(),
+		  cap: rc.charAt(0).toUpperCase() + rc.substring(1)
+	  });
+  }
+  
   
   $scope.laneCharColors = ["#845EC2","#008E9B","#008F7A","#D65DB1","#FF6F91","#0089BA","#FF9671","#008F7A","#FF9671","#FFC75F","#F9F871","#2C73D2","#0081CF"];
   
   $scope.characters = [/*{
     "name":"Guilherme",
     "acr":"G",
-    "class":"XXX",
+    "class":"Druid",
     "init":22
   },{
     "name":"Daniel",
     "acr":"D",
-    "class":"XXX",
+    "class":"Warrior",
     "init":25
   },{
     "name":"Gabriel",
     "acr":"A",
-    "class":"XXX",
+    "class":"Druid",
     "init":17
   },{
     "name":"Victor",
     "acr":"V",
-    "class":"XXX",
+    "class":"Warrior",
     "init":26
   },{
     "name":"Cibele",
     "acr":"C",
-    "class":"XXX",
+    "class":"Warrior",
     "init":15
   },{
     "name":"Niki",
     "acr":"N",
-    "class":"XXX",
+    "class":"Druid",
     "init":12
   },{
     "name":"Pedreiro",
     "acr":"P",
-    "class":"XXX",
+    "class":"Paladin",
     "init":19
   }*/];
   $scope.turn = {};
@@ -57,6 +70,8 @@ app.controller('CharCtrl', function($scope, $uibModal) {
       "initiativeBonus":0,
       "initiative":null
     };
+	s.charFormHeaderClass = "";
+	s.showClass = {};
   }
   
   $scope.toggleCharForm = function() {
@@ -79,12 +94,24 @@ app.controller('CharCtrl', function($scope, $uibModal) {
     if (has) fill1Char(ch,i+1);
   }
   
+  $scope.selectClass = function(c) {
+	var s = $scope.showClass;
+	for (i in s){s[i] = false;};
+	s[c] = true;
+	console.log(c, s);
+  }
+  
+  $scope.confirmClass = function(c) {
+	  $scope.character.class = c;
+	  $scope.charFormHeaderClass = c + "-header";
+  }
+  
   $scope.addChar = function() {
     try {
       fill1Char($scope.character);
-      console.log($scope.character);
       $scope.character.init = parseInt($scope.character.initiative) + parseInt($scope.character.initiativeBonus);
       $scope.characters.push($scope.character);
+	  $('#myModal').modal('toggle');
       resetChar($scope);
       $scope.toggleCharForm();
     }catch(err){console.log(err);alert("Preencha os campos corretamente.");}
@@ -153,13 +180,4 @@ app.controller('CharCtrl', function($scope, $uibModal) {
   }
   
   resetChar($scope);
-  
-  angular.element(document.querySelector('.char-class')).bind('click', function(elem){
-	  console.log("Click: ", elem);
-  });
-  console.log('a');
-  angular.forEach(document.querySelector('.char-class'), function (a,b,c,d) {
-	  console.log('go',a,b,c,d);
-  });
-  console.log('b');
 });
